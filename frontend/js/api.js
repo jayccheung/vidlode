@@ -1,9 +1,9 @@
-﻿/* ============================================
+/* ============================================
    VidLode API Layer
    Communicates with Cloudflare Worker → VPS backend
    ============================================ */
 
-const API_BASE = 'https://api.vidlode.com';
+const API_BASE = 'https://vidlode-api.1191020399.workers.dev';
 
 const VidLodeAPI = {
   /**
