@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Free YouTube video downloader. Download YouTube videos in 4K, 1080p, 720p. No registration, no software install. Works on mobile and desktop.">
+  <meta name="keywords" content="youtube downloader, download youtube videos, youtube to mp4, free youtube downloader, online youtube downloader">
+  <meta name="theme-color" content="#0e1224">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://vidlode.com/youtube-downloader">
+  <title>YouTube Video Downloader — Free Online | VidLode</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="/" class="topbar-brand">
+      <span class="logo-dot"></span>VidLode
+    </a>
+  </header>
+
+  <main class="main-content">
+
+    <!-- Hero -->
+    <section class="text-center" style="padding:24px 0 8px;">
+      <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,0,0,0.1);color:#FF0000;padding:4px 12px;border-radius:var(--radius-full);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:16px;">
+        <span class="material-symbols-outlined" style="font-size:14px;">smart_display</span>YouTube Downloader
+      </span>
+      <h1 style="font-family:'Geist',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;color:var(--on-surface);margin-bottom:8px;">
+        Download YouTube Videos
+      </h1>
+      <p style="font-size:14px;color:var(--on-surface-variant);margin-bottom:20px;">
+        Free online YouTube downloader. Save videos in 4K, 1080p, 720p. No software install needed.
+      </p>
+
+      <!-- URL Input -->
+      <div class="url-input-wrapper">
+        <input type="url" class="url-input" id="urlInput" placeholder="Paste YouTube link here…" autocomplete="off">
+        <button class="paste-btn" id="pasteBtn" aria-label="Paste">content_paste</button>
+      </div>
+      <button class="cta-btn mt-sm" onclick="doParse()">
+        <span class="material-symbols-outlined" style="font-size:20px;">download</span>
+        Download YouTube Video
+      </button>
+    </section>
+
+    <!-- Features -->
+    <section class="mt-lg" style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--stack-sm);">
+      <div style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;text-align:center;">
+        <div class="material-symbols-outlined" style="font-size:32px;color:var(--cyber-purple);margin-bottom:8px;">4k</div>
+        <div style="font-weight:600;font-size:14px;color:var(--on-surface);">4K Quality</div>
+        <div style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">Up to 2160p</div>
+      </div>
+      <div style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;text-align:center;">
+        <div class="material-symbols-outlined" style="font-size:32px;color:var(--terminal-green);margin-bottom:8px;">bolt</div>
+        <div style="font-weight:600;font-size:14px;color:var(--on-surface);">Fast & Free</div>
+        <div style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">No sign-up needed</div>
+      </div>
+      <div style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;text-align:center;">
+        <div class="material-symbols-outlined" style="font-size:32px;color:var(--secondary);margin-bottom:8px;">phonelink</div>
+        <div style="font-weight:600;font-size:14px;color:var(--on-surface);">All Devices</div>
+        <div style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">iOS, Android, Desktop</div>
+      </div>
+      <div style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;text-align:center;">
+        <div class="material-symbols-outlined" style="font-size:32px;color:var(--tertiary);margin-bottom:8px;">headphones</div>
+        <div style="font-weight:600;font-size:14px;color:var(--on-surface);">Audio Mode</div>
+        <div style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">Extract MP3 audio</div>
+      </div>
+    </section>
+
+    <!-- How to -->
+    <section class="mt-lg">
+      <h2 class="section-title">How to Download YouTube Videos</h2>
+      <div style="display:flex;flex-direction:column;gap:var(--stack-sm);">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div>
+            <div style="font-weight:600;font-size:15px;color:var(--on-surface);margin-bottom:4px;">Copy YouTube Link</div>
+            <div style="font-size:13px;color:var(--on-surface-variant);">Open the YouTube app or website. Tap the Share button below the video and choose Copy Link.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div>
+            <div style="font-weight:600;font-size:15px;color:var(--on-surface);margin-bottom:4px;">Paste & Parse</div>
+            <div style="font-size:13px;color:var(--on-surface-variant);">Paste the link into the field above. VidLode instantly retrieves all available quality options — from 144p up to 4K.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div>
+            <div style="font-weight:600;font-size:15px;color:var(--on-surface);margin-bottom:4px;">Download</div>
+            <div style="font-size:13px;color:var(--on-surface-variant);">Select your preferred quality and tap Download. The video saves directly to your device.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="mt-lg mb-md">
+      <h2 class="section-title">FAQ</h2>
+      <div style="display:flex;flex-direction:column;gap:var(--stack-sm);">
+        <details style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;border:1px solid var(--outline-variant);">
+          <summary style="font-weight:600;font-size:15px;color:var(--cyber-purple);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+            Is VidLode YouTube downloader free?
+            <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
+          </summary>
+          <p style="font-size:14px;color:var(--on-surface-variant);margin-top:12px;">Yes, it is 100% free. No hidden fees, no subscription, no registration required.</p>
+        </details>
+        <details style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;border:1px solid var(--outline-variant);">
+          <summary style="font-weight:600;font-size:15px;color:var(--cyber-purple);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+            Can I download YouTube videos in 4K?
+            <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
+          </summary>
+          <p style="font-size:14px;color:var(--on-surface-variant);margin-top:12px;">Yes. If the original video is available in 4K (2160p), VidLode will provide the 4K download option.</p>
+        </details>
+        <details style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;border:1px solid var(--outline-variant);">
+          <summary style="font-weight:600;font-size:15px;color:var(--cyber-purple);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+            Do I need to install anything?
+            <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
+          </summary>
+          <p style="font-size:14px;color:var(--on-surface-variant);margin-top:12px;">No. VidLode works entirely in your browser. No app install, no extension, no software download.</p>
+        </details>
+        <details style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;border:1px solid var(--outline-variant);">
+          <summary style="font-weight:600;font-size:15px;color:var(--cyber-purple);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+            Does it work on iPhone / iPad?
+            <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
+          </summary>
+          <p style="font-size:14px;color:var(--on-surface-variant);margin-top:12px;">Yes. VidLode is a web app that works on Safari, Chrome, and all modern browsers on iOS and Android.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- More platforms -->
+    <section class="mt-lg mb-md" style="text-align:center;">
+      <p style="font-size:14px;color:var(--on-surface-variant);margin-bottom:12px;">Also download from:</p>
+      <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+        <a href="/tiktok-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">TikTok</a>
+        <a href="/instagram-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Instagram</a>
+        <a href="/twitter-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Twitter/X</a>
+        <a href="/bilibili-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Bilibili</a>
+        <a href="/douyin-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Douyin</a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/db.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    const input = document.getElementById('urlInput');
+    document.getElementById('pasteBtn').addEventListener('click', () => pasteFromClipboard(input));
+
+    window.doParse = function () {
+      const url = input.value.trim();
+      if (!url) { showToast('Please paste a YouTube link', 'error'); return; }
+      sessionStorage.setItem('vidlode_url', url);
+      sessionStorage.setItem('vidlode_platform', JSON.stringify({ id: 'youtube', name: 'YouTube', icon: 'smart_display' }));
+      window.location.href = '/download.html';
+    };
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') doParse();
+    });
+  </script>
+
+</body>
+</html>

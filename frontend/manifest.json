@@ -1,0 +1,14 @@
+{
+  "name": "VidLode — Free Video Downloader",
+  "short_name": "VidLode",
+  "description": "Download videos from YouTube, TikTok, Instagram, Twitter, Bilibili and more. Free, no registration.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e1224",
+  "theme_color": "#0e1224",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

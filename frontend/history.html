@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0e1224">
+  <title>History — VidLode</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="/" class="topbar-brand">
+      <span class="logo-dot"></span>VidLode
+    </a>
+  </header>
+
+  <main class="main-content">
+
+    <!-- Empty State -->
+    <div id="emptyState" class="empty-state" style="display:none;">
+      <div class="empty-icon">history</div>
+      <div class="empty-title">No downloads yet</div>
+      <div class="empty-desc">Your download history will appear here</div>
+      <a href="/" style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:12px 24px;background:var(--secondary-container);color:var(--on-secondary-container);border-radius:var(--radius-full);text-decoration:none;font-weight:600;font-size:15px;">
+        <span class="material-symbols-outlined" style="font-size:20px;">add</span>
+        Download a video
+      </a>
+    </div>
+
+    <!-- History Content -->
+    <div id="historyContent" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--stack-md);">
+        <h1 class="section-title" style="margin:0;">Download History</h1>
+        <button id="clearBtn" style="background:none;border:1px solid var(--outline-variant);color:var(--on-surface-variant);padding:6px 14px;border-radius:var(--radius-full);font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;transition:color 0.2s,border-color 0.2s;">Clear All</button>
+      </div>
+      <div id="historyGroups"></div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="/" class="nav-item" data-tab="home">
+      <span class="nav-icon">home</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="/download.html" class="nav-item" data-tab="download">
+      <span class="nav-icon">download</span>
+      <span class="nav-label">Download</span>
+    </a>
+    <a href="/history.html" class="nav-item active" data-tab="history">
+      <span class="nav-icon">history</span>
+      <span class="nav-label">History</span>
+    </a>
+    <a href="/settings.html" class="nav-item" data-tab="settings">
+      <span class="nav-icon">settings</span>
+      <span class="nav-label">Settings</span>
+    </a>
+  </nav>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/db.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    (async function () {
+      const items = await VidLodeDB.getAll();
+      const groups = groupByDate(items);
+
+      if (items.length === 0) {
+        document.getElementById('emptyState').style.display = '';
+        return;
+      }
+
+      document.getElementById('historyContent').style.display = '';
+
+      const container = document.getElementById('historyGroups');
+      groups.forEach(([label, entries]) => {
+        const section = document.createElement('section');
+        section.style.marginBottom = 'var(--stack-md)';
+
+        const header = document.createElement('h2');
+        header.style.cssText = 'font-family:\"JetBrains Mono\",monospace;font-size:12px;font-weight:500;color:var(--on-surface-variant);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:var(--stack-sm);';
+        header.textContent = label;
+        section.appendChild(header);
+
+        entries.forEach(item => {
+          const platform = VidLodeAPI.PLATFORMS.find(p => p.id === item.platform);
+          const card = document.createElement('article');
+          card.className = 'download-card';
+          card.style.marginBottom = '8px';
+          card.innerHTML = '<div class="download-thumb"><img src="' + (item.thumbnail || '') + '" alt="" onerror="this.style.display=\'none\'" /></div>' +
+            '<div class="download-meta"><div class="download-title">' + item.title + '</div>' +
+            '<div class="download-info"><span class="status-badge complete"><span class="material-symbols-outlined" style="font-size:10px;">check_circle</span> Done</span>' +
+            '<span style="display:flex;align-items:center;gap:3px;"><span class="material-symbols-outlined" style="font-size:10px;color:' + (platform ? platform.color : 'var(--cyber-purple)') + '">' + (platform ? platform.icon : 'link') + '</span>' + (platform ? platform.name : item.platform) + '</span>' +
+            '</div></div>' +
+            '<button onclick="VidLodeDB.delete(' + item.id + ');location.reload();" style="background:none;border:none;color:var(--on-surface-variant);cursor:pointer;font-family:\'Material Symbols Outlined\';font-size:20px;padding:4px;flex-shrink:0;align-self:center;" title="Delete">delete</button>';
+          section.appendChild(card);
+        });
+
+        container.appendChild(section);
+      });
+
+      // Clear all
+      document.getElementById('clearBtn').addEventListener('click', async () => {
+        if (confirm('Clear all download history?')) {
+          await VidLodeDB.clear();
+          location.reload();
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

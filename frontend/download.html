@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0e1224">
+  <title>Download — VidLode</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="topbar" style="gap:12px;">
+    <button onclick="history.back()" style="background:none;border:none;color:var(--on-surface);cursor:pointer;font-family:'Material Symbols Outlined';font-size:24px;padding:4px;-webkit-tap-highlight-color:transparent;">arrow_back</button>
+    <a href="/" class="topbar-brand">
+      <span class="logo-dot"></span>VidLode
+    </a>
+  </header>
+
+  <main class="main-content">
+    <!-- State: Loading / Skeleton -->
+    <div id="loadingState">
+      <div class="skeleton" style="width:100%;aspect-ratio:16/9;border-radius:var(--radius-lg);"></div>
+      <div class="skeleton mt-sm" style="height:24px;width:80%;"></div>
+      <div class="skeleton mt-sm" style="height:18px;width:50%;"></div>
+      <div class="skeleton mt-md" style="height:48px;width:100%;"></div>
+      <div class="skeleton mt-sm" style="height:48px;width:100%;"></div>
+      <div class="skeleton mt-sm" style="height:48px;width:100%;"></div>
+    </div>
+
+    <!-- State: Parse Result -->
+    <div id="resultState" style="display:none;">
+      <!-- Video Cover -->
+      <div style="position:relative;border-radius:var(--radius-lg);overflow:hidden;width:100%;aspect-ratio:16/9;background:var(--surface-container);">
+        <img id="thumbnail" src="" alt="" style="width:100%;height:100%;object-fit:cover;">
+        <div id="duration" style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.75);color:#fff;padding:2px 8px;border-radius:var(--radius-sm);font-family:'JetBrains Mono',monospace;font-size:12px;"></div>
+      </div>
+
+      <!-- Video Info -->
+      <div class="mt-sm">
+        <h1 id="videoTitle" style="font-family:'Geist',sans-serif;font-size:16px;font-weight:700;color:var(--on-surface);line-height:1.4;margin-bottom:6px;"></h1>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span id="authorName" style="font-size:13px;color:var(--on-surface-variant);"></span>
+          <span id="platformBadge" style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--radius-full);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;background:var(--surface-container-highest);color:var(--cyber-purple);"></span>
+        </div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid var(--outline-variant);margin:var(--stack-md) 0;">
+
+      <!-- Quality Selection -->
+      <h2 class="section-title">Select Quality</h2>
+      <div id="formatList" style="display:flex;flex-direction:column;gap:var(--stack-sm);"></div>
+
+      <!-- Download Button -->
+      <div class="mt-md">
+        <button class="cta-btn" id="downloadBtn">
+          <span class="material-symbols-outlined" style="font-size:20px;">download</span>
+          Download
+        </button>
+      </div>
+
+      <!-- Download Progress (hidden by default) -->
+      <div id="progressSection" style="display:none;" class="mt-md">
+        <div class="glass-panel" style="padding:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:end;font-family:'JetBrains Mono',monospace;font-size:13px;margin-bottom:8px;">
+            <span id="progressPercent" style="color:var(--cyber-purple);font-weight:700;">0%</span>
+            <span id="progressEta" style="color:var(--on-surface-variant);">Calculating…</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--on-surface-variant);margin-top:8px;">
+            <span id="progressSpeed"></span>
+            <span id="progressSize"></span>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:16px;">
+            <button id="pauseBtn" style="flex:1;padding:10px;background:var(--surface-container-high);border:none;border-radius:var(--radius-md);color:var(--on-surface);font-family:'Geist',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+              <span class="material-symbols-outlined" style="font-size:18px;">pause</span>
+              Pause
+            </button>
+            <button id="cancelBtn" style="flex:1;padding:10px;background:rgba(255,180,171,0.1);border:1px solid rgba(255,180,171,0.3);border-radius:var(--radius-md);color:var(--error);font-family:'Geist',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+              <span class="material-symbols-outlined" style="font-size:18px;">close</span>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- State: Error -->
+    <div id="errorState" style="display:none;text-align:center;padding:48px 24px;">
+      <div class="material-symbols-outlined" style="font-size:64px;color:var(--error);opacity:0.5;margin-bottom:16px;">error_outline</div>
+      <h2 style="font-family:'Geist',sans-serif;font-size:18px;font-weight:700;color:var(--on-surface);margin-bottom:8px;">Parse Failed</h2>
+      <p id="errorMsg" style="font-size:14px;color:var(--on-surface-variant);margin-bottom:24px;"></p>
+      <button onclick="window.location.reload()" class="cta-btn" style="max-width:200px;margin:0 auto;">Retry</button>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/db.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    (async function () {
+      const url = sessionStorage.getItem('vidlode_url');
+      if (!url) {
+        window.location.href = '/';
+        return;
+      }
+
+      const platform = JSON.parse(sessionStorage.getItem('vidlode_platform') || '{}');
+
+      function showState(state) {
+        document.getElementById('loadingState').style.display = state === 'loading' ? '' : 'none';
+        document.getElementById('resultState').style.display = state === 'result' ? '' : 'none';
+        document.getElementById('errorState').style.display = state === 'error' ? '' : 'none';
+      }
+
+      try {
+        showState('loading');
+
+        // Call API
+        const data = await VidLodeAPI.parse(url);
+
+        // Populate UI
+        document.getElementById('thumbnail').src = data.thumbnail;
+        document.getElementById('thumbnail').alt = data.title;
+        document.getElementById('duration').textContent = data.duration ? formatDuration(data.duration) : '';
+        document.getElementById('videoTitle').textContent = data.title;
+        document.getElementById('authorName').textContent = data.author || '';
+        document.getElementById('platformBadge').innerHTML = '<span class="material-symbols-outlined" style="font-size:14px;">' + platform.icon + '</span>' + platform.name;
+
+        // Format list
+        const formatList = document.getElementById('formatList');
+        let selectedFormat = null;
+        data.formats.forEach((fmt, i) => {
+          const opt = document.createElement('div');
+          opt.className = 'quality-option' + (i === 0 ? ' selected' : '');
+          opt.innerHTML = '<div class="quality-radio"></div><span class="quality-label">' + fmt.quality + '</span><span class="quality-info">' + (fmt.format || 'MP4') + '</span>';
+          opt.addEventListener('click', () => {
+            formatList.querySelectorAll('.quality-option').forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+            selectedFormat = fmt;
+          });
+          formatList.appendChild(opt);
+        });
+        selectedFormat = data.formats[0];
+
+        showState('result');
+
+        // Save to history
+        VidLodeDB.save({
+          title: data.title,
+          author: data.author,
+          thumbnail: data.thumbnail,
+          platform: platform.id,
+          url: url,
+          date: new Date().toISOString()
+        });
+
+        // Download action
+        document.getElementById('downloadBtn').addEventListener('click', async () => {
+          if (!selectedFormat) {
+            showToast('Please select a quality', 'error');
+            return;
+          }
+
+          try {
+            const dlData = await VidLodeAPI.getDownload(url, selectedFormat.id);
+            document.getElementById('progressSection').style.display = '';
+            document.getElementById('downloadBtn').style.display = 'none';
+
+            // Simulate progress while fetching
+            let progress = 0;
+            const fill = document.getElementById('progressFill');
+            const pct = document.getElementById('progressPercent');
+            const size = document.getElementById('progressSize');
+            const speed = document.getElementById('progressSpeed');
+            const eta = document.getElementById('progressEta');
+
+            speed.textContent = 'Starting…';
+
+            // Actual download via fetch
+            const response = await fetch(dlData.downloadUrl);
+            const contentLength = response.headers.get('content-length');
+            const total = parseInt(contentLength, 10);
+            size.textContent = total ? '0 / ' + formatSize(total) : '';
+
+            const reader = response.body.getReader();
+            let received = 0;
+            const chunks = [];
+            const startTime = Date.now();
+
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              chunks.push(value);
+              received += value.length;
+
+              const elapsed = (Date.now() - startTime) / 1000;
+              const rate = received / elapsed;
+              const pctVal = total ? Math.round((received / total) * 100) : Math.min(95, progress + 1);
+
+              fill.style.width = pctVal + '%';
+              pct.textContent = pctVal + '%';
+              speed.textContent = formatSize(rate) + '/s';
+
+              if (total) {
+                size.textContent = formatSize(received) + ' / ' + formatSize(total);
+                const remaining = (total - received) / rate;
+                eta.textContent = remaining > 60 ? Math.ceil(remaining / 60) + 'm remaining' : Math.ceil(remaining) + 's remaining';
+              }
+
+              progress = pctVal;
+            }
+
+            // Complete
+            fill.style.width = '100%';
+            pct.textContent = '100%';
+            eta.textContent = 'Complete';
+
+            const blob = new Blob(chunks);
+            const blobUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = data.title + '.' + (selectedFormat.format || 'mp4');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(blobUrl);
+
+            showToast('Download complete!', 'success');
+          } catch (err) {
+            showToast('Download failed: ' + err.message, 'error');
+          }
+        });
+
+      } catch (err) {
+        document.getElementById('errorMsg').textContent = err.message;
+        showState('error');
+      }
+    })();
+  </script>
+
+</body>
+</html>

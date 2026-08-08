@@ -1,0 +1,13 @@
+name = "vidlode-api"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# Free tier: 100k requests/day, 10ms CPU per request
+# This Worker only does light proxying — well within limits
+
+[env.production]
+vars = { BACKEND_URL = "https://yt-dlp.vidlode.com" }
+
+[[routes]]
+pattern = "api.vidlode.com/*"
+zone_name = "vidlode.com"
