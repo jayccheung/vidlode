@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
@@ -6,36 +6,27 @@
   <meta name="description" content="Download videos from YouTube, TikTok, Instagram, Twitter, Bilibili, Douyin, WeChat Channels and more. Free, fast, no registration needed.">
   <meta name="theme-color" content="#0e1224">
   <title>VidLode — Free Online Video Downloader for 8+ Platforms</title>
-
-  <!-- PWA -->
   <link rel="manifest" href="/manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="VidLode">
   <link rel="apple-touch-icon" href="/icon-192.png">
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0..1&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
   <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
 
-  <!-- Top Bar -->
   <header class="topbar">
     <a href="/" class="topbar-brand">
       <span class="logo-dot"></span>VidLode
     </a>
   </header>
 
-  <!-- Main Content -->
   <main class="main-content">
 
-    <!-- Hero -->
-    <section class="text-center" style="padding: 24px 0 8px;">
+    <section class="text-center" style="padding:24px 0 8px;">
       <h1 style="font-family:'Geist',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;color:var(--on-surface);margin-bottom:8px;">
         Download Any Video
       </h1>
@@ -43,16 +34,8 @@
         Paste a link from YouTube, TikTok, Instagram &amp; more — download instantly
       </p>
 
-      <!-- URL Input -->
       <div class="url-input-wrapper">
-        <input
-          type="url"
-          class="url-input"
-          id="urlInput"
-          placeholder="Paste video link here…"
-          autocomplete="off"
-          autofocus
-        >
+        <input type="url" class="url-input" id="urlInput" placeholder="Paste video link here…" autocomplete="off" autofocus>
         <button class="paste-btn" id="pasteBtn" aria-label="Paste from clipboard" title="Paste">content_paste</button>
       </div>
 
@@ -62,13 +45,11 @@
       </button>
     </section>
 
-    <!-- Supported Platforms -->
     <section class="mt-lg">
       <h2 class="section-title">8 Platforms Supported</h2>
       <div class="platform-grid" id="platformGrid"></div>
     </section>
 
-    <!-- How It Works -->
     <section class="mt-lg">
       <h2 class="section-title">How It Works</h2>
       <div style="display:flex;flex-direction:column;gap:var(--stack-sm);">
@@ -96,7 +77,6 @@
       </div>
     </section>
 
-    <!-- Features -->
     <section class="mt-lg mb-md" style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--stack-sm);">
       <div style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;text-align:center;">
         <div class="material-symbols-outlined" style="font-size:32px;color:var(--cyber-purple);margin-bottom:8px;">bolt</div>
@@ -122,7 +102,6 @@
 
   </main>
 
-  <!-- Bottom Navigation -->
   <nav class="bottom-nav">
     <a href="/" class="nav-item active" data-tab="home">
       <span class="nav-icon">home</span>
@@ -142,57 +121,50 @@
     </a>
   </nav>
 
-  <!-- Scripts -->
   <script src="/js/api.js"></script>
   <script src="/js/db.js"></script>
   <script src="/js/app.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const input = document.getElementById('urlInput');
-      const pasteBtn = document.getElementById('pasteBtn');
-      const parseBtn = document.getElementById('parseBtn');
-      const grid = document.getElementById('platformGrid');
+    document.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("urlInput");
+      const pasteBtn = document.getElementById("pasteBtn");
+      const parseBtn = document.getElementById("parseBtn");
+      const grid = document.getElementById("platformGrid");
 
-      // Render platform grid
       VidLodeAPI.PLATFORMS.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'platform-card';
-        card.innerHTML = '<span class="platform-icon material-symbols-outlined" style="color:' + p.color + '">' + p.icon + '</span><span class="platform-name">' + p.name + '</span>';
-        card.addEventListener('click', () => {
+        const card = document.createElement("div");
+        card.className = "platform-card";
+        card.innerHTML = "<span class=\"platform-icon material-symbols-outlined\" style=\"color:" + p.color + "\">" + p.icon + "</span><span class=\"platform-name\">" + p.name + "</span>";
+        card.addEventListener("click", () => {
           input.focus();
-          showToast('Paste a ' + p.name + ' link to start');
+          showToast("Paste a " + p.name + " link to start");
         });
         grid.appendChild(card);
       });
 
-      // Paste button
-      pasteBtn.addEventListener('click', () => pasteFromClipboard(input));
+      pasteBtn.addEventListener("click", () => pasteFromClipboard(input));
 
-      // Parse action
       async function doParse() {
         const url = input.value.trim();
         if (!url) {
-          showToast('Please paste a video link first', 'error');
+          showToast("Please paste a video link first", "error");
           return;
         }
 
         const platform = VidLodeAPI.detectPlatform(url);
         if (!platform) {
-          showToast('Unsupported platform. Try YouTube, TikTok, Instagram, etc.', 'error');
+          showToast("Unsupported platform. Try YouTube, TikTok, Instagram, etc.", "error");
           return;
         }
 
-        // Store in session for download page
-        sessionStorage.setItem('vidlode_url', url);
-        sessionStorage.setItem('vidlode_platform', JSON.stringify(platform));
-
-        // Navigate to download page
-        window.location.href = '/download.html';
+        sessionStorage.setItem("vidlode_url", url);
+        sessionStorage.setItem("vidlode_platform", JSON.stringify(platform));
+        window.location.href = "/download.html";
       }
 
-      parseBtn.addEventListener('click', doParse);
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') doParse();
+      parseBtn.addEventListener("click", doParse);
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") doParse();
       });
     });
   </script>

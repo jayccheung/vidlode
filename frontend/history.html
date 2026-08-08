@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
@@ -21,7 +21,6 @@
 
   <main class="main-content">
 
-    <!-- Empty State -->
     <div id="emptyState" class="empty-state" style="display:none;">
       <div class="empty-icon">history</div>
       <div class="empty-title">No downloads yet</div>
@@ -32,7 +31,6 @@
       </a>
     </div>
 
-    <!-- History Content -->
     <div id="historyContent" style="display:none;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--stack-md);">
         <h1 class="section-title" style="margin:0;">Download History</h1>
@@ -43,7 +41,6 @@
 
   </main>
 
-  <!-- Bottom Navigation -->
   <nav class="bottom-nav">
     <a href="/" class="nav-item" data-tab="home">
       <span class="nav-icon">home</span>
@@ -72,42 +69,41 @@
       const groups = groupByDate(items);
 
       if (items.length === 0) {
-        document.getElementById('emptyState').style.display = '';
+        document.getElementById("emptyState").style.display = "";
         return;
       }
 
-      document.getElementById('historyContent').style.display = '';
+      document.getElementById("historyContent").style.display = "";
+      const container = document.getElementById("historyGroups");
 
-      const container = document.getElementById('historyGroups');
       groups.forEach(([label, entries]) => {
-        const section = document.createElement('section');
-        section.style.marginBottom = 'var(--stack-md)';
+        const section = document.createElement("section");
+        section.style.marginBottom = "var(--stack-md)";
 
-        const header = document.createElement('h2');
-        header.style.cssText = 'font-family:\"JetBrains Mono\",monospace;font-size:12px;font-weight:500;color:var(--on-surface-variant);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:var(--stack-sm);';
+        const header = document.createElement("h2");
+        header.style.cssText = "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--on-surface-variant);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:var(--stack-sm);";
         header.textContent = label;
         section.appendChild(header);
 
         entries.forEach(item => {
           const platform = VidLodeAPI.PLATFORMS.find(p => p.id === item.platform);
-          const card = document.createElement('article');
-          card.className = 'download-card';
-          card.style.marginBottom = '8px';
-          card.innerHTML = '<div class="download-thumb"><img src="' + (item.thumbnail || '') + '" alt="" onerror="this.style.display=\'none\'" /></div>' +
-            '<div class="download-meta"><div class="download-title">' + item.title + '</div>' +
-            '<div class="download-info"><span class="status-badge complete"><span class="material-symbols-outlined" style="font-size:10px;">check_circle</span> Done</span>' +
-            '<span style="display:flex;align-items:center;gap:3px;"><span class="material-symbols-outlined" style="font-size:10px;color:' + (platform ? platform.color : 'var(--cyber-purple)') + '">' + (platform ? platform.icon : 'link') + '</span>' + (platform ? platform.name : item.platform) + '</span>' +
-            '</div></div>' +
-            '<button onclick="VidLodeDB.delete(' + item.id + ');location.reload();" style="background:none;border:none;color:var(--on-surface-variant);cursor:pointer;font-family:\'Material Symbols Outlined\';font-size:20px;padding:4px;flex-shrink:0;align-self:center;" title="Delete">delete</button>';
+          const card = document.createElement("article");
+          card.className = "download-card";
+          card.style.marginBottom = "8px";
+          card.innerHTML = "<div class=\"download-thumb\"><img src=\"" + (item.thumbnail || "") + "\" alt=\"\" onerror=\"this.style.display='none'\" /></div>" +
+            "<div class=\"download-meta\"><div class=\"download-title\">" + item.title + "</div>" +
+            "<div class=\"download-info\"><span class=\"status-badge complete\"><span class=\"material-symbols-outlined\" style=\"font-size:10px;\">check_circle</span> Done</span>" +
+            "<span style=\"display:flex;align-items:center;gap:3px;\"><span class=\"material-symbols-outlined\" style=\"font-size:10px;color:" + (platform ? platform.color : "var(--cyber-purple)") + "\">" + (platform ? platform.icon : "link") + "</span>" + (platform ? platform.name : item.platform) + "</span>" +
+            "</div></div>" +
+            "<button onclick=\"VidLodeDB.delete(" + item.id + ");location.reload();\" style=\"background:none;border:none;color:var(--on-surface-variant);cursor:pointer;font-family:'Material Symbols Outlined';font-size:20px;padding:4px;flex-shrink:0;align-self:center;\" title=\"Delete\">delete</button>";
           section.appendChild(card);
         });
 
         container.appendChild(section);
       });
 
-      // Clear all
-      document.getElementById('clearBtn').addEventListener('click', async () => {
-        if (confirm('Clear all download history?')) {
+      document.getElementById("clearBtn").addEventListener("click", async () => {
+        if (confirm("Clear all download history?")) {
           await VidLodeDB.clear();
           location.reload();
         }

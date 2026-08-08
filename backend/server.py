@@ -1,4 +1,4 @@
-# VidLode Backend — yt-dlp Video Parser Service
+﻿# VidLode Backend — yt-dlp Video Parser Service
 # Runs on Oracle Cloud Free Tier VPS (4 cores, 24GB RAM)
 # Python 3.11+ · FastAPI · yt-dlp · uvicorn
 
@@ -35,13 +35,13 @@ def cache_key(url: str) -> str:
 def cache_get(key: str) -> Optional[dict]:
     with _cache_lock:
         entry = _cache.get(key)
-        if entry and (time.time() - entry['ts']) < CACHE_TTL:
-            return entry['data']
+        if entry and (time.time() - entry["ts"]) < CACHE_TTL:
+            return entry["data"]
     return None
 
 def cache_set(key: str, data: dict):
     with _cache_lock:
-        _cache[key] = {'data': data, 'ts': time.time()}
+        _cache[key] = {"data": data, "ts": time.time()}
 
 
 # ============================================================
@@ -79,15 +79,15 @@ class DownloadResponse(BaseModel):
 # ============================================================
 
 def run_ytdlp(url: str, extra_args: list = None) -> dict:
-    """Run yt-dlp with the given URL and return parsed JSON.""""
+    """Run yt-dlp with the given URL and return parsed JSON."""
     cmd = [
-        'yt-dlp',
-        '--dump-json',
-        '--no-playlist',
-        '--no-warnings',
-        '--socket-timeout', '30',
-        '--retries', '3',
-        '--extractor-retries', '3',
+        "yt-dlp",
+        "--dump-json",
+        "--no-playlist",
+        "--no-warnings",
+        "--socket-timeout", "30",
+        "--retries", "3",
+        "--extractor-retries", "3",
     ]
     if extra_args:
         cmd.extend(extra_args)
@@ -99,7 +99,7 @@ def run_ytdlp(url: str, extra_args: list = None) -> dict:
             capture_output=True,
             text=True,
             timeout=60,
-            env={**os.environ, 'PYTHONIOENCODING': 'utf-8'}
+            env={**os.environ, "PYTHONIOENCODING": "utf-8"}
         )
         if result.returncode != 0:
             stderr = result.stderr.strip()
@@ -110,55 +110,55 @@ def run_ytdlp(url: str, extra_args: list = None) -> dict:
     except FileNotFoundError:
         raise Exception("yt-dlp is not installed on this server.")
     except json.JSONDecodeError:
-        raise Exception("Failed to parse yt-dlp output."")
+        raise Exception("Failed to parse yt-dlp output.")
 
 
 def extract_formats(info: dict) -> list[dict]:
-    """Extract relevant format info from yt-dlp JSON.""""
+    """Extract relevant format info from yt-dlp JSON."""
     formats = []
     seen = set()
 
-    for f in info.get('formats', []):
+    for f in info.get("formats", []):
         # Skip formats without video unless audio-only is explicitly requested
-        height = f.get('height')
+        height = f.get("height")
         if not height or height == 0:
             # Audio-only formats
-            abr = f.get('abr')
-            if abr and 'audio only' not in seen:
-                seen.add('audio only')
+            abr = f.get("abr")
+            if abr and "audio only" not in seen:
+                seen.add("audio only")
                 formats.append({
-                    'id': f['format_id'],
-                    'quality': 'Audio Only (MP3)',
-                    'format': 'mp3',
-                    'filesize': f.get('filesize') or f.get('filesize_approx'),
-                    'hasAudio': True
+                    "id": f["format_id"],
+                    "quality": "Audio Only (MP3)",
+                    "format": "mp3",
+                    "filesize": f.get("filesize") or f.get("filesize_approx"),
+                    "hasAudio": True
                 })
             continue
 
-        quality_label = f'{height}p'
+        quality_label = f"{height}p"
         if quality_label in seen:
             continue
         seen.add(quality_label)
 
-        ext = f.get('ext', 'mp4')
-        if ext == 'mhtml':
-            ext = 'mp4'
+        ext = f.get("ext", "mp4")
+        if ext == "mhtml":
+            ext = "mp4"
 
         formats.append({
-            'id': f['format_id'],
-            'quality': quality_label,
-            'format': ext,
-            'filesize': f.get('filesize') or f.get('filesize_approx'),
-            'hasAudio': f.get('acodec') != 'none'
+            "id": f["format_id"],
+            "quality": quality_label,
+            "format": ext,
+            "filesize": f.get("filesize") or f.get("filesize_approx"),
+            "hasAudio": f.get("acodec") != "none"
         })
 
     # Sort by quality (highest first)
     def sort_key(f):
-        q = f['quality']
-        if 'Audio' in q:
+        q = f["quality"]
+        if "Audio" in q:
             return 9999
         try:
-            return -int(q.replace('p', ''))
+            return -int(q.replace("p", ""))
         except:
             return 0
 
@@ -167,23 +167,23 @@ def extract_formats(info: dict) -> list[dict]:
 
 
 def detect_platform(url: str) -> str:
-    """Simple platform detection from URL.""""
+    """Simple platform detection from URL."""
     u = url.lower()
-    if 'youtube.com' in u or 'youtu.be' in u:
-        return 'youtube'
-    if 'twitter.com' in u or 'x.com' in u:
-        return 'twitter'
-    if 'instagram.com' in u:
-        return 'instagram'
-    if 'bilibili.com' in u:
-        return 'bilibili'
-    if 'douyin.com' in u:
-        return 'douyin'
-    if 'tiktok.com' in u:
-        return 'tiktok'
-    if 'weishi.qq.com' in u or 'finder.video.qq.com' in u or 'weixin.qq.com' in u:
-        return 'weishi'
-    return 'unknown'
+    if "youtube.com" in u or "youtu.be" in u:
+        return "youtube"
+    if "twitter.com" in u or "x.com" in u:
+        return "twitter"
+    if "instagram.com" in u:
+        return "instagram"
+    if "bilibili.com" in u:
+        return "bilibili"
+    if "douyin.com" in u:
+        return "douyin"
+    if "tiktok.com" in u:
+        return "tiktok"
+    if "weishi.qq.com" in u or "finder.video.qq.com" in u or "weixin.qq.com" in u:
+        return "weishi"
+    return "unknown"
 
 
 # ============================================================
@@ -197,7 +197,7 @@ async def health():
 
 @app.post("/api/parse", response_model=ParseResponse)
 async def parse_video(req: ParseRequest):
-    """Parse a video URL and return metadata + available formats.""""
+    """Parse a video URL and return metadata + available formats."""
     url = req.url.strip()
 
     # Check cache
@@ -215,12 +215,12 @@ async def parse_video(req: ParseRequest):
             raise Exception("No downloadable formats found for this video.")
 
         response = {
-            'title': info.get('title', 'Unknown Title')[:200],
-            'author': info.get('uploader') or info.get('channel') or info.get('creator') or "",
-            'duration': info.get('duration'),
-            'thumbnail': info.get('thumbnail') or info.get('thumbnails', [{}])[0].get('url', "") if info.get('thumbnails') else "",
-            'formats': formats,
-            'platform': platform
+            "title": info.get("title", "Unknown Title")[:200],
+            "author": info.get("uploader") or info.get("channel") or info.get("creator") or "",
+            "duration": info.get("duration"),
+            "thumbnail": info.get("thumbnail") or info.get("thumbnails", [{}])[0].get("url", "") if info.get("thumbnails") else "",
+            "formats": formats,
+            "platform": platform
         }
 
         # Cache the result
@@ -233,29 +233,28 @@ async def parse_video(req: ParseRequest):
 
 @app.post("/api/download", response_model=DownloadResponse)
 async def get_download_url(req: DownloadRequest):
-    """Get direct download URL for a specific format.""""
+    """Get direct download URL for a specific format."""
     url = req.url.strip()
     format_id = req.formatId
 
     try:
         # Use yt-dlp to get the direct URL
-        extra_args = ['-f', format_id, '-g']  # -g prints the direct URL
         result = subprocess.run(
-            ['yt-dlp', '-f', format_id, '-g', '--no-playlist', '--socket-timeout', '30', url],
+            ["yt-dlp", "-f", format_id, "-g", "--no-playlist", "--socket-timeout", "30", url],
             capture_output=True,
             text=True,
             timeout=30,
-            env={**os.environ, 'PYTHONIOENCODING': 'utf-8'}
+            env={**os.environ, "PYTHONIOENCODING": "utf-8"}
         )
 
         if result.returncode != 0:
             raise Exception(f"Failed to get download URL: {result.stderr[:200]}")
 
-        download_url = result.stdout.strip().split('\n')[0]  # Take first URL
-        if not download_url or not download_url.startswith('http'):
+        download_url = result.stdout.strip().split("\n")[0]  # Take first URL
+        if not download_url or not download_url.startswith("http"):
             raise Exception("Invalid download URL returned")
 
-        return {'downloadUrl': download_url}
+        return {"downloadUrl": download_url}
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -263,7 +262,7 @@ async def get_download_url(req: DownloadRequest):
 
 def check_ytdlp_version() -> str:
     try:
-        result = subprocess.run(['yt-dlp', '--version'], capture_output=True, text=True, timeout=5)
+        result = subprocess.run(["yt-dlp", "--version"], capture_output=True, text=True, timeout=5)
         return result.stdout.strip()
     except:
         return "unknown"

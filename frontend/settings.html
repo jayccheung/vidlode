@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
@@ -11,67 +11,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0..1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/app.css">
   <style>
-    .setting-group {
-      margin-bottom: var(--stack-md);
-    }
+    .setting-group { margin-bottom: var(--stack-md); }
     .setting-group-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--on-surface-variant);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: var(--stack-sm);
-      padding-left: 4px;
+      font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 500;
+      color: var(--on-surface-variant); letter-spacing: 0.05em; text-transform: uppercase;
+      margin-bottom: var(--stack-sm); padding-left: 4px;
     }
     .setting-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      background: var(--surface-container);
-      border: 1px solid var(--outline-variant);
-      border-radius: var(--radius-lg);
-      margin-bottom: 8px;
-      cursor: pointer;
-      transition: border-color 0.2s;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px; background: var(--surface-container);
+      border: 1px solid var(--outline-variant); border-radius: var(--radius-lg);
+      margin-bottom: 8px; cursor: pointer; transition: border-color 0.2s;
       -webkit-tap-highlight-color: transparent;
     }
     .setting-row:hover { border-color: var(--outline); }
     .setting-label {
-      font-family: 'Geist', sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--on-surface);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-family: "Geist", sans-serif; font-size: 15px; font-weight: 500;
+      color: var(--on-surface); display: flex; align-items: center; gap: 10px;
     }
     .setting-value {
-      font-size: 13px;
-      color: var(--on-surface-variant);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-size: 13px; color: var(--on-surface-variant);
+      display: flex; align-items: center; gap: 6px;
     }
-    .setting-value .material-symbols-outlined {
-      font-size: 18px;
-      color: var(--cyber-purple);
-    }
+    .setting-value .material-symbols-outlined { font-size: 18px; color: var(--cyber-purple); }
     select.setting-select {
-      background: var(--surface-container-high);
-      border: 1px solid var(--outline-variant);
-      border-radius: var(--radius-md);
-      color: var(--on-surface);
-      padding: 6px 12px;
-      font-family: 'Geist', sans-serif;
-      font-size: 13px;
-      cursor: pointer;
-      outline: none;
+      background: var(--surface-container-high); border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-md); color: var(--on-surface); padding: 6px 12px;
+      font-family: "Geist", sans-serif; font-size: 13px; cursor: pointer; outline: none;
     }
-    select.setting-select:focus {
-      border-color: var(--cyber-purple);
-    }
+    select.setting-select:focus { border-color: var(--cyber-purple); }
   </style>
 </head>
 <body>
@@ -85,10 +53,9 @@
   <main class="main-content">
     <h1 class="section-title">Settings</h1>
 
-    <!-- Language -->
     <div class="setting-group">
       <div class="setting-group-title">General</div>
-      <div class="setting-row" id="langRow">
+      <div class="setting-row">
         <div class="setting-label">
           <span class="material-symbols-outlined" style="font-size:22px;color:var(--cyber-purple);">language</span>
           Language
@@ -107,10 +74,9 @@
       </div>
     </div>
 
-    <!-- Download -->
     <div class="setting-group">
       <div class="setting-group-title">Download</div>
-      <div class="setting-row" id="qualityRow">
+      <div class="setting-row">
         <div class="setting-label">
           <span class="material-symbols-outlined" style="font-size:22px;color:var(--terminal-green);">hd</span>
           Default Quality
@@ -124,7 +90,7 @@
           </select>
         </div>
       </div>
-      <div class="setting-row" id="audioRow">
+      <div class="setting-row">
         <div class="setting-label">
           <span class="material-symbols-outlined" style="font-size:22px;color:var(--secondary);">headphones</span>
           Audio Only Mode
@@ -135,7 +101,6 @@
       </div>
     </div>
 
-    <!-- Data -->
     <div class="setting-group">
       <div class="setting-group-title">Data & Storage</div>
       <div class="setting-row" id="cacheRow">
@@ -144,12 +109,11 @@
           Clear History Cache
         </div>
         <div class="setting-value">
-          <span class="material-symbols-outlined" style="cursor:pointer;" id="clearCacheIcon">delete</span>
+          <span class="material-symbols-outlined" style="cursor:pointer;">delete</span>
         </div>
       </div>
     </div>
 
-    <!-- About -->
     <div class="setting-group">
       <div class="setting-group-title">About</div>
       <div class="setting-row" style="cursor:default;">
@@ -162,7 +126,6 @@
     </div>
   </main>
 
-  <!-- Bottom Navigation -->
   <nav class="bottom-nav">
     <a href="/" class="nav-item" data-tab="home">
       <span class="nav-icon">home</span>
@@ -186,41 +149,37 @@
   <script src="/js/db.js"></script>
   <script src="/js/app.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Language
-      const langSelect = document.getElementById('langSelect');
-      const savedLang = localStorage.getItem('vidlode_lang') || 'en';
+    document.addEventListener("DOMContentLoaded", () => {
+      const langSelect = document.getElementById("langSelect");
+      const savedLang = localStorage.getItem("vidlode_lang") || "en";
       langSelect.value = savedLang;
-      langSelect.addEventListener('change', () => {
-        localStorage.setItem('vidlode_lang', langSelect.value);
-        showToast('Language set to ' + langSelect.options[langSelect.selectedIndex].text, 'success');
+      langSelect.addEventListener("change", () => {
+        localStorage.setItem("vidlode_lang", langSelect.value);
+        showToast("Language set to " + langSelect.options[langSelect.selectedIndex].text, "success");
       });
 
-      // Quality
-      const qualitySelect = document.getElementById('qualitySelect');
-      const savedQuality = localStorage.getItem('vidlode_quality') || 'best';
+      const qualitySelect = document.getElementById("qualitySelect");
+      const savedQuality = localStorage.getItem("vidlode_quality") || "best";
       qualitySelect.value = savedQuality;
-      qualitySelect.addEventListener('change', () => {
-        localStorage.setItem('vidlode_quality', qualitySelect.value);
-        showToast('Default quality updated', 'success');
+      qualitySelect.addEventListener("change", () => {
+        localStorage.setItem("vidlode_quality", qualitySelect.value);
+        showToast("Default quality updated", "success");
       });
 
-      // Audio only toggle
-      let audioOnly = localStorage.getItem('vidlode_audio_only') === 'true';
-      const audioToggle = document.getElementById('audioToggle');
-      audioToggle.textContent = audioOnly ? 'toggle_on' : 'toggle_off';
-      audioToggle.addEventListener('click', () => {
+      let audioOnly = localStorage.getItem("vidlode_audio_only") === "true";
+      const audioToggle = document.getElementById("audioToggle");
+      audioToggle.textContent = audioOnly ? "toggle_on" : "toggle_off";
+      audioToggle.addEventListener("click", () => {
         audioOnly = !audioOnly;
-        localStorage.setItem('vidlode_audio_only', audioOnly);
-        audioToggle.textContent = audioOnly ? 'toggle_on' : 'toggle_off';
-        showToast(audioOnly ? 'Audio-only mode on' : 'Full video mode', 'success');
+        localStorage.setItem("vidlode_audio_only", audioOnly);
+        audioToggle.textContent = audioOnly ? "toggle_on" : "toggle_off";
+        showToast(audioOnly ? "Audio-only mode on" : "Full video mode", "success");
       });
 
-      // Clear cache
-      document.getElementById('clearCacheIcon').parentElement.parentElement.addEventListener('click', async () => {
-        if (confirm('Clear all download history and cached data?')) {
+      document.getElementById("cacheRow").addEventListener("click", async () => {
+        if (confirm("Clear all download history and cached data?")) {
           await VidLodeDB.clear();
-          showToast('Cache cleared', 'success');
+          showToast("Cache cleared", "success");
         }
       });
     });
