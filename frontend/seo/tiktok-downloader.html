@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Free TikTok video downloader. Download TikTok videos without watermark in HD quality. No registration, no app install. Works on mobile and desktop.">
+  <meta name="keywords" content="tiktok downloader, download tiktok videos, tiktok without watermark, free tiktok downloader, tiktok to mp4, tiktok video saver, tiktok downloader no watermark, online tiktok downloader">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0e1224">
+  <link rel="canonical" href="https://vidlode.com/tiktok-downloader">
+  <meta property="og:title" content="TikTok Video Downloader — No Watermark | VidLode">
+  <meta property="og:description" content="Free TikTok video downloader. Download TikTok videos without watermark in HD quality. No registration, no app install. Works on mobile and desktop.">
+  <meta property="og:url" content="https://vidlode.com/tiktok-downloader">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TikTok Video Downloader — No Watermark | VidLode">
+  <meta name="twitter:description" content="Free TikTok video downloader. Download TikTok videos without watermark in HD quality. No registration, no app install. Works on mobile and desktop.">
+  <script type="application/ld+json">  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is VidLode TikTok downloader free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, it is 100% free. No registration, no hidden fees, and no software installation required." } },
+      { "@type": "Question", "name": "Can I download TikTok videos in HD?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. VidLode provides the highest quality available for TikTok videos, including HD and Full HD resolutions." } },
+      { "@type": "Question", "name": "Do I need to install an app to download TikTok videos?", "acceptedAnswer": { "@type": "Answer", "text": "No. VidLode is a web-based tool that works in your browser. No app install, no extension, and no software download is needed." } },
+      { "@type": "Question", "name": "Does VidLode support TikTok video downloads on mobile?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. VidLode works on iOS Safari, Android Chrome, and all modern mobile browsers. Download TikTok videos directly to your phone." } }
+    ]
+  }</script>
+  <title>TikTok Video Downloader — No Watermark | VidLode</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0..1&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="/" class="topbar-brand">
+      <span class="logo-dot"></span>VidLode
+    </a>
+  </header>
+
+  <main class="main-content">
+
+    <section class="text-center" style="padding:24px 0 8px;">
+      <span style="display:inline-flex;align-items:center;gap:6px;background:#0000001a;color:#000000;padding:4px 12px;border-radius:var(--radius-full);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:16px;">
+        <span class="material-symbols-outlined" style="font-size:14px;">music_video</span>TikTok Downloader
+      </span>
+      <h1 style="font-family:'Geist',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;color:var(--on-surface);margin-bottom:8px;">
+        Download TikTok Videos
+      </h1>
+      <p style="font-size:14px;color:var(--on-surface-variant);margin-bottom:20px;">Save TikTok videos without watermark in HD. No app needed — paste a link and download instantly.</p>
+
+      <div class="url-input-wrapper">
+        <input type="url" class="url-input" id="urlInput" placeholder="Paste TikTok link here…" autocomplete="off" autofocus>
+        <button class="paste-btn" id="pasteBtn" aria-label="Paste">content_paste</button>
+      </div>
+      <button class="cta-btn mt-sm" id="parseBtn">
+        <span class="material-symbols-outlined" style="font-size:20px;">download</span>
+        Download TikTok Video
+      </button>
+    </section>
+
+    <section class="mt-lg" style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--stack-sm);">
+      <div style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;text-align:center;">
+        <div class="material-symbols-outlined" style="font-size:32px;color:var(--cyber-purple);margin-bottom:8px;">water_drop</div>
+        <div style="font-weight:600;font-size:14px;color:var(--on-surface);">No Watermark</div>
+        <div style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">Clean HD videos</div>
+      </div>
+      <div style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;text-align:center;">
+        <div class="material-symbols-outlined" style="font-size:32px;color:var(--cyber-purple);margin-bottom:8px;">music_note</div>
+        <div style="font-weight:600;font-size:14px;color:var(--on-surface);">Audio + Video</div>
+        <div style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">MP4 with sound</div>
+      </div>
+      <div style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;text-align:center;">
+        <div class="material-symbols-outlined" style="font-size:32px;color:var(--cyber-purple);margin-bottom:8px;">bolt</div>
+        <div style="font-weight:600;font-size:14px;color:var(--on-surface);">Instant Download</div>
+        <div style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">No waiting queue</div>
+      </div>
+      <div style="background:var(--surface-container);border-radius:var(--radius-lg);padding:16px;text-align:center;">
+        <div class="material-symbols-outlined" style="font-size:32px;color:var(--cyber-purple);margin-bottom:8px;">phonelink</div>
+        <div style="font-weight:600;font-size:14px;color:var(--on-surface);">All Devices</div>
+        <div style="font-size:11px;color:var(--on-surface-variant);margin-top:4px;">iOS & Android</div>
+      </div>
+    </section>
+
+    <section class="mt-lg">
+      <h2 class="section-title">How to Download TikTok Videos</h2>
+      <div style="display:flex;flex-direction:column;gap:var(--stack-sm);">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div>
+            <div style="font-weight:600;font-size:15px;color:var(--on-surface);margin-bottom:4px;">Copy TikTok Link</div>
+            <div style="font-size:13px;color:var(--on-surface-variant);">Open TikTok and copy the video link from the share menu or address bar.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div>
+            <div style="font-weight:600;font-size:15px;color:var(--on-surface);margin-bottom:4px;">Paste &amp; Parse</div>
+            <div style="font-size:13px;color:var(--on-surface-variant);">Paste the link above and click Download. VidLode instantly retrieves all available quality options.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div>
+            <div style="font-weight:600;font-size:15px;color:var(--on-surface);margin-bottom:4px;">Choose Quality &amp; Save</div>
+            <div style="font-size:13px;color:var(--on-surface-variant);">Select your preferred quality and download. The video saves directly to your device.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-lg mb-md" style="text-align:center;">
+      <p style="font-size:14px;color:var(--on-surface-variant);margin-bottom:12px;">Also download from:</p>
+      <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+        <a href="/youtube-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">YouTube</a>
+        <a href="/tiktok-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">TikTok</a>
+        <a href="/instagram-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Instagram</a>
+        <a href="/twitter-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Twitter/X</a>
+        <a href="/bilibili-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Bilibili</a>
+        <a href="/douyin-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Douyin</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="text-align:center;padding:16px 16px 80px;border-top:1px solid var(--outline-variant);">
+    <p style="font-size:11px;color:var(--on-surface-variant);margin-bottom:8px;line-height:1.6;">
+      VidLode is a free tool for personal use. You are responsible for ensuring you have the right to download content.
+    </p>
+    <p style="font-size:11px;color:var(--on-surface-variant);margin-bottom:8px;">
+      &copy; 2026 VidLode. All rights reserved.
+    </p>
+    <nav style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+      <a href="/privacy" style="color:var(--cyber-purple);text-decoration:none;font-size:12px;">Privacy Policy</a>
+      <a href="/terms" style="color:var(--cyber-purple);text-decoration:none;font-size:12px;">Terms of Service</a>
+    </nav>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/db.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    const input = document.getElementById("urlInput");
+    const pid = "TikTok";
+    const picon = "music_video";
+
+    document.getElementById("pasteBtn").addEventListener("click", () => pasteFromClipboard(input));
+
+    document.getElementById("parseBtn").addEventListener("click", () => {
+      const url = input.value.trim();
+      if (!url) { showToast("Please paste a " + pid + " link", "error"); return; }
+      sessionStorage.setItem("vidlode_url", url);
+      sessionStorage.setItem("vidlode_platform", JSON.stringify({ id: pid.toLowerCase(), name: pid, icon: picon }));
+      window.location.href = "/download.html";
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("parseBtn").click();
+    });
+  </script>
+
+</body>
+</html>

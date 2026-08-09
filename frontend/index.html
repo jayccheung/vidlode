@@ -3,8 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" data-i18n="index.desc" content="Download videos from YouTube, TikTok, Instagram, Twitter, Bilibili, Douyin, WeChat Channels and more. Free, fast, no registration needed.">
+  <meta name="description" data-i18n="index.desc" content="Download videos from YouTube, TikTok, Instagram, Twitter/X, Bilibili, Douyin, WeChat Channels, Reddit and more. Free, fast, no registration. Supports 4K, 1080p, MP3.">
+  <meta name="keywords" content="video downloader, free video downloader, online video downloader, YouTube downloader, TikTok downloader, Instagram downloader, Twitter video downloader, Bilibili downloader, Douyin downloader, download videos free, video to MP4, 4K video download, MP3 extractor, no registration, vidlode">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#0e1224">
+  <meta name="author" content="VidLode">
+  <link rel="canonical" href="https://vidlode.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VidLode">
+  <meta property="og:title" content="VidLode — Free Online Video Downloader for 8+ Platforms">
+  <meta property="og:description" content="Download videos from YouTube, TikTok, Instagram, Twitter/X, Bilibili, Douyin and more. Free, no registration, up to 4K.">
+  <meta property="og:url" content="https://vidlode.com/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="VidLode — Free Online Video Downloader">
+  <meta name="twitter:description" content="Download videos from YouTube, TikTok, Instagram and more. Free, no registration, up to 4K.">
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "VidLode",
+    "url": "https://vidlode.com",
+    "description": "Free online video downloader supporting YouTube, TikTok, Instagram, Twitter/X, Bilibili, Douyin, WeChat Channels, and Reddit. No registration needed.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "All",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is VidLode free to use?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, VidLode is 100% free. No registration, no hidden fees, no software installation required." } },
+      { "@type": "Question", "name": "What video quality does VidLode support?", "acceptedAnswer": { "@type": "Answer", "text": "VidLode supports up to 4K (2160p) resolution, as well as 1080p, 720p, 480p, and audio-only MP3 extraction." } },
+      { "@type": "Question", "name": "Which platforms are supported?", "acceptedAnswer": { "@type": "Answer", "text": "VidLode supports YouTube, TikTok, Instagram, Twitter/X, Bilibili, Douyin, WeChat Channels, and Reddit. More platforms are added regularly." } },
+      { "@type": "Question", "name": "Do I need to install any software?", "acceptedAnswer": { "@type": "Answer", "text": "No. VidLode works entirely in your web browser. No app install, no browser extension, and no software download required." } },
+      { "@type": "Question", "name": "Does VidLode work on mobile devices?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. VidLode is a progressive web app (PWA) that works on iOS Safari, Android Chrome, and all modern browsers on mobile and desktop." } }
+    ]
+  }
+  </script>
+
   <title data-i18n="index.title">VidLode — Free Online Video Downloader for 8+ Platforms</title>
   <link rel="manifest" href="/manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +82,7 @@
       </p>
 
       <div class="url-input-wrapper">
-        <input type="url" class="url-input" id="urlInput" data-i18n-placeholder="index.placeholder" placeholder="Paste video link here…" autocomplete="off" autofocus>
+        <input type="url" class="url-input" id="urlInput" data-i18n-placeholder="index.placeholder" placeholder="Paste any link — auto-detect platform" autocomplete="off" autofocus>
         <button class="paste-btn" id="pasteBtn" aria-label="Paste from clipboard" title="Paste">content_paste</button>
       </div>
 
@@ -100,6 +147,19 @@
       </div>
     </section>
 
+    <!-- SEO: platform-targeted links -->
+    <section class="mt-lg mb-md" style="text-align:center;">
+      <p style="font-size:13px;color:var(--on-surface-variant);margin-bottom:12px;">Popular platform downloaders:</p>
+      <nav style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;" aria-label="Platform downloaders">
+        <a href="/youtube-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">YouTube Downloader</a>
+        <a href="/tiktok-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">TikTok Downloader</a>
+        <a href="/instagram-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Instagram Downloader</a>
+        <a href="/twitter-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Twitter/X Downloader</a>
+        <a href="/bilibili-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Bilibili Downloader</a>
+        <a href="/douyin-downloader" style="color:var(--cyber-purple);text-decoration:none;font-size:13px;font-weight:500;">Douyin Downloader</a>
+      </nav>
+    </section>
+
   </main>
 
   <nav class="bottom-nav">
@@ -120,6 +180,23 @@
       <span class="nav-label" data-i18n="nav.settings">Settings</span>
     </a>
   </nav>
+
+  <footer style="text-align:center;padding:16px 16px 80px;border-top:1px solid var(--outline-variant);">
+    <p style="font-size:11px;color:var(--on-surface-variant);margin-bottom:8px;line-height:1.6;">
+      VidLode is a free tool for personal use. You are responsible for ensuring you have the right to download content.<br>
+      We do not host or store any video files — all downloads come directly from the source platform.
+    </p>
+    <p style="font-size:11px;color:var(--on-surface-variant);margin-bottom:8px;">
+      &copy; 2026 VidLode. All rights reserved.
+    </p>
+    <nav style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;" aria-label="Legal">
+      <a href="/privacy" style="color:var(--cyber-purple);text-decoration:none;font-size:12px;">Privacy Policy</a>
+      <a href="/terms" style="color:var(--cyber-purple);text-decoration:none;font-size:12px;">Terms of Service</a>
+      <span style="color:var(--outline-variant);font-size:12px;">|</span>
+      <a href="mailto:dmca@vidlode.com" style="color:var(--cyber-purple);text-decoration:none;font-size:12px;">DMCA</a>
+      <a href="mailto:contact@vidlode.com" style="color:var(--cyber-purple);text-decoration:none;font-size:12px;">Contact</a>
+    </nav>
+  </footer>
 
   <script src="/js/i18n.js"></script>
   <script src="/js/api.js"></script>

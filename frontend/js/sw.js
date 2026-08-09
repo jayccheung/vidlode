@@ -1,4 +1,4 @@
-﻿/* VidLode Service Worker v1.0 — Offline Cache */
+/* VidLode Service Worker v1.0 — Offline Cache */
 const CACHE = 'vidlode-v1';
 const ASSETS = [
   '/',
@@ -6,10 +6,13 @@ const ASSETS = [
   '/js/api.js',
   '/js/app.js',
   '/js/db.js',
+  '/js/i18n.js',
   '/manifest.json',
   '/download.html',
   '/history.html',
-  '/settings.html'
+  '/settings.html',
+  '/privacy',
+  '/terms'
 ];
 
 self.addEventListener('install', (e) => {
