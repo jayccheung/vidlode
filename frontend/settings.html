@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0e1224">
-  <title>Settings — VidLode</title>
+  <title data-i18n="settings.title">Settings — VidLode</title>
   <link rel="manifest" href="/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0..1&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/app.css">
   <style>
     .setting-group { margin-bottom: var(--stack-md); }
@@ -51,14 +51,14 @@
   </header>
 
   <main class="main-content">
-    <h1 class="section-title">Settings</h1>
+    <h1 data-i18n="settings.heading" class="section-title">Settings</h1>
 
     <div class="setting-group">
-      <div class="setting-group-title">General</div>
+      <div data-i18n="settings.general" class="setting-group-title">General</div>
       <div class="setting-row">
         <div class="setting-label">
           <span class="material-symbols-outlined" style="font-size:22px;color:var(--cyber-purple);">language</span>
-          Language
+          <span data-i18n="settings.language">Language</span>
         </div>
         <div class="setting-value">
           <select class="setting-select" id="langSelect">
@@ -75,15 +75,15 @@
     </div>
 
     <div class="setting-group">
-      <div class="setting-group-title">Download</div>
+      <div data-i18n="settings.download" class="setting-group-title">Download</div>
       <div class="setting-row">
         <div class="setting-label">
           <span class="material-symbols-outlined" style="font-size:22px;color:var(--terminal-green);">hd</span>
-          Default Quality
+          <span data-i18n="settings.quality">Default Quality</span>
         </div>
         <div class="setting-value">
           <select class="setting-select" id="qualitySelect">
-            <option value="best">Best Available</option>
+            <option value="best" data-i18n="quality.best">Best Available</option>
             <option value="1080p">1080p</option>
             <option value="720p">720p</option>
             <option value="480p">480p</option>
@@ -93,7 +93,7 @@
       <div class="setting-row">
         <div class="setting-label">
           <span class="material-symbols-outlined" style="font-size:22px;color:var(--secondary);">headphones</span>
-          Audio Only Mode
+          <span data-i18n="settings.audio">Audio Only Mode</span>
         </div>
         <div class="setting-value">
           <span class="material-symbols-outlined" id="audioToggle" style="cursor:pointer;">toggle_off</span>
@@ -102,11 +102,11 @@
     </div>
 
     <div class="setting-group">
-      <div class="setting-group-title">Data & Storage</div>
+      <div data-i18n="settings.data" class="setting-group-title">Data & Storage</div>
       <div class="setting-row" id="cacheRow">
         <div class="setting-label">
           <span class="material-symbols-outlined" style="font-size:22px;color:var(--tertiary);">storage</span>
-          Clear History Cache
+          <span data-i18n="settings.clear_cache">Clear History Cache</span>
         </div>
         <div class="setting-value">
           <span class="material-symbols-outlined" style="cursor:pointer;">delete</span>
@@ -115,11 +115,11 @@
     </div>
 
     <div class="setting-group">
-      <div class="setting-group-title">About</div>
+      <div data-i18n="settings.about" class="setting-group-title">About</div>
       <div class="setting-row" style="cursor:default;">
         <div class="setting-label">
           <span class="material-symbols-outlined" style="font-size:22px;color:var(--cyber-purple);">info</span>
-          Version
+          <span data-i18n="settings.version">Version</span>
         </div>
         <div class="setting-value" style="font-family:'JetBrains Mono',monospace;font-size:12px;">v1.0.0 MVP</div>
       </div>
@@ -129,33 +129,43 @@
   <nav class="bottom-nav">
     <a href="/" class="nav-item" data-tab="home">
       <span class="nav-icon">home</span>
-      <span class="nav-label">Home</span>
+      <span class="nav-label" data-i18n="nav.home">Home</span>
     </a>
     <a href="/download.html" class="nav-item" data-tab="download">
       <span class="nav-icon">download</span>
-      <span class="nav-label">Download</span>
+      <span class="nav-label" data-i18n="nav.download">Download</span>
     </a>
     <a href="/history.html" class="nav-item" data-tab="history">
       <span class="nav-icon">history</span>
-      <span class="nav-label">History</span>
+      <span class="nav-label" data-i18n="nav.history">History</span>
     </a>
     <a href="/settings.html" class="nav-item active" data-tab="settings">
       <span class="nav-icon">settings</span>
-      <span class="nav-label">Settings</span>
+      <span class="nav-label" data-i18n="nav.settings">Settings</span>
     </a>
   </nav>
 
+  <script src="/js/i18n.js"></script>
   <script src="/js/api.js"></script>
   <script src="/js/db.js"></script>
   <script src="/js/app.js"></script>
   <script>
+    VidLodeI18n.init();
+
     document.addEventListener("DOMContentLoaded", () => {
       const langSelect = document.getElementById("langSelect");
-      const savedLang = localStorage.getItem("vidlode_lang") || "en";
-      langSelect.value = savedLang;
+      langSelect.value = VidLodeI18n.lang;
+
       langSelect.addEventListener("change", () => {
-        localStorage.setItem("vidlode_lang", langSelect.value);
-        showToast("Language set to " + langSelect.options[langSelect.selectedIndex].text, "success");
+        const val = langSelect.value;
+        if (val === "zh" || val === "en") {
+          VidLodeI18n.setLang(val);
+          const label = VidLodeI18n._dict[val] ? VidLodeI18n._dict[val]["index.heading"].substring(0, 2) : val;
+          showToast(t("toast.lang_saved", { lang: langSelect.options[langSelect.selectedIndex].text }), "success");
+        } else {
+          localStorage.setItem("vidlode_lang", val);
+          showToast("Language set to " + langSelect.options[langSelect.selectedIndex].text, "success");
+        }
       });
 
       const qualitySelect = document.getElementById("qualitySelect");
@@ -163,7 +173,7 @@
       qualitySelect.value = savedQuality;
       qualitySelect.addEventListener("change", () => {
         localStorage.setItem("vidlode_quality", qualitySelect.value);
-        showToast("Default quality updated", "success");
+        showToast(t("toast.quality_saved"), "success");
       });
 
       let audioOnly = localStorage.getItem("vidlode_audio_only") === "true";
@@ -173,13 +183,13 @@
         audioOnly = !audioOnly;
         localStorage.setItem("vidlode_audio_only", audioOnly);
         audioToggle.textContent = audioOnly ? "toggle_on" : "toggle_off";
-        showToast(audioOnly ? "Audio-only mode on" : "Full video mode", "success");
+        showToast(audioOnly ? t("toast.audio_on") : t("toast.audio_off"), "success");
       });
 
       document.getElementById("cacheRow").addEventListener("click", async () => {
-        if (confirm("Clear all download history and cached data?")) {
+        if (confirm(t("confirm.clear_cache"))) {
           await VidLodeDB.clear();
-          showToast("Cache cleared", "success");
+          showToast(t("toast.cache_cleared"), "success");
         }
       });
     });

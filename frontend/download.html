@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0e1224">
-  <title>Download — VidLode</title>
+  <title data-i18n="download.title">Download — VidLode</title>
   <link rel="manifest" href="/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0..1&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
@@ -47,13 +47,13 @@
 
       <hr style="border:none;border-top:1px solid var(--outline-variant);margin:var(--stack-md) 0;">
 
-      <h2 class="section-title">Select Quality</h2>
+      <h2 data-i18n="download.select" class="section-title">Select Quality</h2>
       <div id="formatList" style="display:flex;flex-direction:column;gap:var(--stack-sm);"></div>
 
       <div class="mt-md">
         <button class="cta-btn" id="downloadBtn">
           <span class="material-symbols-outlined" style="font-size:20px;">download</span>
-          Download
+          <span data-i18n="download.btn">Download</span>
         </button>
       </div>
 
@@ -61,7 +61,7 @@
         <div class="glass-panel" style="padding:16px;">
           <div style="display:flex;justify-content:space-between;align-items:end;font-family:'JetBrains Mono',monospace;font-size:13px;margin-bottom:8px;">
             <span id="progressPercent" style="color:var(--cyber-purple);font-weight:700;">0%</span>
-            <span id="progressEta" style="color:var(--on-surface-variant);">Calculating…</span>
+            <span id="progressEta" data-i18n="download.calc" style="color:var(--on-surface-variant);">Calculating…</span>
           </div>
           <div class="progress-bar">
             <div class="progress-fill" id="progressFill" style="width:0%;"></div>
@@ -73,37 +73,49 @@
           <div style="display:flex;gap:12px;margin-top:16px;">
             <button id="pauseBtn" style="flex:1;padding:10px;background:var(--surface-container-high);border:none;border-radius:var(--radius-md);color:var(--on-surface);font-family:'Geist',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
               <span class="material-symbols-outlined" style="font-size:18px;">pause</span>
-              Pause
+              <span data-i18n="download.pause">Pause</span>
             </button>
             <button id="cancelBtn" style="flex:1;padding:10px;background:rgba(255,180,171,0.1);border:1px solid rgba(255,180,171,0.3);border-radius:var(--radius-md);color:var(--error);font-family:'Geist',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
               <span class="material-symbols-outlined" style="font-size:18px;">close</span>
-              Cancel
+              <span data-i18n="download.cancel">Cancel</span>
             </button>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="errorState" style="display:none;text-align:center;padding:48px 24px;">
-      <div class="material-symbols-outlined" style="font-size:64px;color:var(--error);opacity:0.5;margin-bottom:16px;">error_outline</div>
-      <h2 style="font-family:'Geist',sans-serif;font-size:18px;font-weight:700;color:var(--on-surface);margin-bottom:8px;">Parse Failed</h2>
-      <p id="errorMsg" style="font-size:14px;color:var(--on-surface-variant);margin-bottom:24px;"></p>
-      <button onclick="window.location.reload()" class="cta-btn" style="max-width:200px;margin:0 auto;">Retry</button>
+    <div id="errorState" style="display:none;">
+      <div class="empty-state">
+        <div class="empty-icon">error</div>
+        <div class="empty-title" id="errorTitle">Parse Failed</div>
+        <div class="empty-desc" id="errorMsg"></div>
+        <a href="/" style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:12px 24px;background:var(--secondary-container);color:var(--on-secondary-container);border-radius:var(--radius-full);text-decoration:none;font-weight:600;font-size:15px;">
+          <span class="material-symbols-outlined" style="font-size:20px;">arrow_back</span>
+          Try Another Link
+        </a>
+      </div>
     </div>
+
   </main>
 
+  <script src="/js/i18n.js"></script>
   <script src="/js/api.js"></script>
   <script src="/js/db.js"></script>
   <script src="/js/app.js"></script>
   <script>
+    VidLodeI18n.init();
+
     (async function () {
       const url = sessionStorage.getItem("vidlode_url");
-      if (!url) {
+      let platform = null;
+      try {
+        platform = JSON.parse(sessionStorage.getItem("vidlode_platform"));
+      } catch {}
+
+      if (!url || !platform) {
         window.location.href = "/";
         return;
       }
-
-      const platform = JSON.parse(sessionStorage.getItem("vidlode_platform") || "{}");
 
       function showState(state) {
         document.getElementById("loadingState").style.display = state === "loading" ? "" : "none";
@@ -150,7 +162,7 @@
 
         document.getElementById("downloadBtn").addEventListener("click", async () => {
           if (!selectedFormat) {
-            showToast("Please select a quality", "error");
+            showToast(t("toast.select_quality"), "error");
             return;
           }
 
@@ -165,7 +177,7 @@
             const size = document.getElementById("progressSize");
             const speed = document.getElementById("progressSpeed");
             const eta = document.getElementById("progressEta");
-            speed.textContent = "Starting…";
+            speed.textContent = t("progress.starting");
 
             const response = await fetch(dlData.downloadUrl);
             const contentLength = response.headers.get("content-length");
@@ -191,14 +203,18 @@
               if (total) {
                 size.textContent = formatSize(received) + " / " + formatSize(total);
                 const remaining = (total - received) / rate;
-                eta.textContent = remaining > 60 ? Math.ceil(remaining / 60) + "m remaining" : Math.ceil(remaining) + "s remaining";
+                if (remaining > 60) {
+                  eta.textContent = t("progress.remaining_m", { n: Math.ceil(remaining / 60) });
+                } else {
+                  eta.textContent = t("progress.remaining_s", { n: Math.ceil(remaining) });
+                }
               }
               progress = pctVal;
             }
 
             fill.style.width = "100%";
             pct.textContent = "100%";
-            eta.textContent = "Complete";
+            eta.textContent = t("download.complete");
 
             const blob = new Blob(chunks);
             const blobUrl = URL.createObjectURL(blob);
@@ -210,9 +226,9 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(blobUrl);
 
-            showToast("Download complete!", "success");
+            showToast(t("toast.download_complete"), "success");
           } catch (err) {
-            showToast("Download failed: " + err.message, "error");
+            showToast(t("toast.download_failed", { error: err.message }), "error");
           }
         });
 

@@ -1,4 +1,4 @@
-﻿/* ============================================
+/* ============================================
    VidLode Shared App Logic
    Navigation, PWA, Toast, Utils
    ============================================ */
@@ -62,7 +62,7 @@
       }
       return text;
     } catch {
-      showToast('Please paste manually', 'error');
+      showToast(window.t ? t('toast.paste_manually') : 'Please paste manually', 'error');
       return '';
     }
   };
@@ -96,7 +96,17 @@
 
   /* ---- Group by date label ---- */
   window.groupByDate = function (items) {
-    const groups = { 'Today': [], 'Yesterday': [], 'This Week': [], 'Earlier': [] };
+    const todayLabel = window.t ? t('history.group_today') : 'Today';
+    const yesterdayLabel = window.t ? t('history.group_yesterday') : 'Yesterday';
+    const weekLabel = window.t ? t('history.group_week') : 'This Week';
+    const earlierLabel = window.t ? t('history.group_earlier') : 'Earlier';
+
+    const groups = {};
+    groups[todayLabel] = [];
+    groups[yesterdayLabel] = [];
+    groups[weekLabel] = [];
+    groups[earlierLabel] = [];
+
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const yesterday = new Date(today - 86400000);
@@ -104,10 +114,10 @@
     for (const item of items) {
       const d = new Date(item.date);
       const day = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-      if (day >= today) groups['Today'].push(item);
-      else if (day >= yesterday) groups['Yesterday'].push(item);
-      else if (day >= new Date(today - 7 * 86400000)) groups['This Week'].push(item);
-      else groups['Earlier'].push(item);
+      if (day >= today) groups[todayLabel].push(item);
+      else if (day >= yesterday) groups[yesterdayLabel].push(item);
+      else if (day >= new Date(today - 7 * 86400000)) groups[weekLabel].push(item);
+      else groups[earlierLabel].push(item);
     }
     return Object.entries(groups).filter(([_, v]) => v.length > 0);
   };
