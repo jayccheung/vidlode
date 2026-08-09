@@ -45,13 +45,13 @@ const VidLodeAPI = {
 
   /** Supported platforms list */
   PLATFORMS: [
-    { id: 'youtube',   name: 'YouTube',   icon: 'smart_display', color: '#FF0000' },
-    { id: 'twitter',   name: 'Twitter/X', icon: 'flutter_dash',  color: '#1DA1F2' },
-    { id: 'instagram', name: 'Instagram', icon: 'camera',         color: '#E4405F' },
-    { id: 'bilibili',  name: 'Bilibili',  icon: 'tv',             color: '#FB7299' },
-    { id: 'douyin',    name: 'Douyin',    icon: 'music_note',     color: '#000000' },
+    { id: 'youtube',   name: 'YouTube',   icon: 'smart_display', color: '#FF0000', slug: 'youtube-downloader' },
+    { id: 'twitter',   name: 'Twitter/X', icon: 'flutter_dash',  color: '#1DA1F2', slug: 'twitter-downloader' },
+    { id: 'instagram', name: 'Instagram', icon: 'camera',         color: '#E4405F', slug: 'instagram-downloader' },
+    { id: 'bilibili',  name: 'Bilibili',  icon: 'tv',             color: '#FB7299', slug: 'bilibili-downloader' },
+    { id: 'douyin',    name: 'Douyin',    icon: 'music_note',     color: '#000000', slug: 'douyin-downloader' },
     { id: 'weishi',    name: 'WeChat Ch.', icon: 'chat',          color: '#07C160' },
-    { id: 'tiktok',    name: 'TikTok',    icon: 'music_video',    color: '#000000' },
+    { id: 'tiktok',    name: 'TikTok',    icon: 'music_video',    color: '#000000', slug: 'tiktok-downloader' },
     { id: 'reddit',    name: 'Reddit',    icon: 'forum',          color: '#FF4500' }
   ],
 
